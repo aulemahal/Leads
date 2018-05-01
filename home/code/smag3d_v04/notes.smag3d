@@ -1,0 +1,56 @@
+
+CPP: ALLOW_SMAG_3D
+flag: useSmag3D
+
+S/R: MOM_CALC_3D_STRAIN(bi,bj)
+     calculate strain-tensor components (total: 6) at their natural location
+      -> return as argument in 3-D local array
+     (str11, str22, str33, str12, str13, str23) <- number is better than x,y,z
+
+S/R: MOM_CALC_SMAG_3D(k,bi,bj)
+     calculate Smagorinsky viscosity coeffs,
+     total of 9 coeff at the right location:
+
+     viscAh3d_ux : at grid-cell center		curently using:  viscAh_D
+     viscAh3d_vy : at grid-cell center		curently using:  viscAh_D
+     viscAh3d_wz : at grid-cell center		curently using:
+					 ( (kappaRU)_barI + (kappaRV)_barJ )_barK /2
+     viscAh3d_uy : at grid-cell corner		curently using:  viscAh_Z
+     viscAh3d_vx : at grid-cell center		curently using:  viscAh_Z
+
+     viscAh3d_uz : Western  edge (above uVel)	curently using:  kappaRU
+     viscAh3d_wx : Western  edge (above uVel)	curently using: (viscAh_W)_barI
+     						with viscAh_W = (viscAh_D)_barK
+     viscAh3d_vz : Southern edge (above uVel)	curently using:  kappaRV
+     viscAh3d_wy : Southern edge (above uVel)	curently using: (viscAh_W)_barJ
+
+note: viscAh3d_ux, viscAh3d_vy
+ and: viscAh3d_uy, viscAh3d_vx can still be 2-D arrays
+
+S/R MOM_CALC_DISSIP_UV(k)  <-- similar to MOM_HDISSIP :
+                            compute guDiss,gvDiss including vertical visc.
+
+c> other names: MOM_UV_DISSIP & MOM_W_DISSIP
+c> other names: MOM_UV_SMAG_3D & MOM_W_SMAG_3D
+
+----------
+1rst try:
+put in common block (inside MOM_VISC.h) all var to be passed to S/R CALC_GW
+   declare the other as local var in S/R DYNAMICS
+   add call to: mom_calc_3d_strain in S/R DYNAMICS (after CALC_VISCOSITY call)
+                mom_calc_smag_3d & mom_uv_smag_3d before CALL TIMESTEP
+   add call to: mom_w_smag_3d in S/R CALC_GW
+
+put CPP: ALLOW_SMAG_3D in MOM_COMMON_OPTIONS.h
+put flag: useSmag3D in PARAMS.h, read in in 1rst namelist
+          + smag3D_coeff
+
+smag3D_hLsC = rA(i,bi,bj)*(2/3)
+smag3D_hLsW = rAw
+smag3D_hLsS = rAs
+smag3D_hLsZ = rAz
+ (smag3D_vLsC = drF(k)*(2/3) 
+  smag3D_vLsF = drC(k)*(2/3)
+
+to do:
+in set_parms.F : useSmag3d = useSmag3d .AND. momViscosity

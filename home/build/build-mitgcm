@@ -1,7 +1,0 @@
-
-module add gcc
-module add openmpi
-
-../../../tools/genmake2 -mods=../code -optfile=../../../tools/build_options/linux_amd64_gfortran -mods=../code -mpi
-make depend
-make -j12

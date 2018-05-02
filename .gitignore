@@ -1,3 +1,4 @@
+## Fortran files
 # Prerequisites
 *.d
 
@@ -31,5 +32,6 @@
 *.out
 *.app
 
-# Build directories
-*/build/
+## MITgcm files
+# Build directories (shouldnt be needed, but tsé)
+build/

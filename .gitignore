@@ -35,3 +35,6 @@
 ## MITgcm files
 # Build directories (shouldnt be needed, but tsé)
 build/
+
+# Python
+__pycache__/

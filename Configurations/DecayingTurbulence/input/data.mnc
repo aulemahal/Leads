@@ -1,0 +1,10 @@
+# MNC output parameters
+ &MNC_01
+ mnc_use_outdir=.TRUE.,
+ mnc_use_name_ni0=.TRUE.,
+ mnc_outdir_str='mnc_',
+ monitor_mnc=.FALSE.,
+ pickup_write_mnc=.FALSE.,
+ pickup_read_mnc=.FALSE.,
+ &
+

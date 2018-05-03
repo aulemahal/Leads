@@ -4,8 +4,8 @@
 #
 # Continuous equation parameters
  &PARM01
- tRef=100*20.,
- sRef=100*35.,
+ tRef=120*20.,
+ sRef=120*35.,
  viscAh=2.E-3,
  viscAz=2.E-3,
  useSmag3D=.TRUE.,
@@ -45,14 +45,14 @@
  
 # Time stepping parameters
  &PARM03
- nIter0 =       166000 ,
- nTimeSteps   = 3000 ,
+ nIter0 =  0,
+ nTimeSteps = 100,
  deltaT      =   2.0000000     ,
  abEps=0.1,
  pChkptFreq =   2000.0000     ,
  chkptFreq  =   2000.0000     ,
  dumpFreq   =   2000.0000     ,
- monitorFreq=8640000.,
+ monitorFreq=100.,
  monitorSelect=1,
  &
   
@@ -61,11 +61,13 @@
  usingCartesianGrid=.TRUE.,
  dXspacing=1.,
  dYspacing=1.,
- delZ=300*1.,
+ delZ=120*1.,
  &
   
   
  &PARM05
- surfQfile='Qo',
- hydrogThetaFile='Tini',
+#surfQfile='Qo',
+ uVelInitFile='Uinit.bin',
+ vVelInitFile='Vinit.bin',
+#hydrogThetaFile='Tini',
  &

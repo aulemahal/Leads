@@ -2,7 +2,7 @@
  &PACKAGES
  useMNC=.FALSE.,
  useDiagnostics=.TRUE.,
- useFLT=.TRUE.,
- useRBCS=.TRUE.,
+ useFLT=.FALSE.,
+ useRBCS=.FALSE.,
 
  &

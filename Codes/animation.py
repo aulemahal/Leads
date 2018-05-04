@@ -3,12 +3,11 @@
 Matplotlib animations for MITgcm data
 
 Made for netCDF4.Dataset (mnc)
-Needs ffmpeg to save directly to disk. Alternatively, save the FuncAnimation version with matplotlib.
+-Needs ffmpeg to save directly to disk. Alternatively, save the FuncAnimation version with matplotlib.
 
 @author: pascalb
 
-Exemple:
-
+Examples:
 >>> import netCDF4 as nc
 >>> data = nc.Dataset('dynDiag.nc') # Où dynDiag.nc contient le champ ET les dimensions requis
                                     # pour TOUTES les tiles (i.e. utiliser gluemncbig)
@@ -147,7 +146,7 @@ class Animation2D(object):
         self.units = units or self.data.units
         self.name = name or (key.lower() if not hasattr(self.data, 'long_name') else self.data.long_name.replace('_', ' ').capitalize())
         if self.name.startswith('\\'):  # LaTeX math titles
-            self.name = f'${self.name}$'
+            self.name = '${}$'.format(self.name)
 
         self.kwargs = unusedkwargs
         self.walls = walls or ''
@@ -159,8 +158,8 @@ class Animation2D(object):
         self.func = None
 
     def _set_axes_text(self):
-        self.ax.set_ylabel(f"{self.axes[1]['name'].lower()} [{self.axes[1]['units']}]")
-        self.ax.set_xlabel(f"{self.axes[0]['name'].lower()} [{self.axes[0]['units']}]")
+        self.ax.set_ylabel("{} [{}]".format(self.axes[1]['name'].lower(), self.axes[1]['units'])
+        self.ax.set_xlabel("{} [{}]".format(self.axes[0]['name'].lower(), self.axes[0]['units'])
 
         self.titletext = self.ax.set_title(self.title)
 
@@ -259,8 +258,8 @@ class Animation2D(object):
         self.fig.set_dpi(dpi)
         w, h = self.fig.canvas.get_width_height()
         command = ['ffmpeg',
-                   '-y', '-r', f'{fps}',
-                   '-s', f'{w:d}x{h:d}',
+                   '-y', '-r', '{}'.format(fps),
+                   '-s', '{w:d}x{h:d}'.format(w=w, h=h),
                    '-pix_fmt', 'argb',
                    '-f', 'rawvideo', '-i', '-',
                    '-vcodec', codec, filename
@@ -315,4 +314,3 @@ class FasterFFMpegWriter(anim.FFMpegWriter):
             raise IOError('Error saving animation to file (cause: {0}) '
                           'Stdout: {1} StdError: {2}. It may help to re-run '
                           'with --verbose-debug.'.format(e, out, err))
-

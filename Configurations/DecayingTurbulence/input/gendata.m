@@ -6,13 +6,13 @@
 clear all
 
 % Dimensions of grid
-nx=600;
-ny=600;
-nz=300;
+nx=120;
+ny=120;
+nz=120;
 % Nominal depth of model (meters)
-H=300;
+H=120;
 % Size of domain
-Lx=600;
+Lx=120;
 % Radius of cooling disk (m)
 Rc=6000.;
 % Horizontal resolution (m)
@@ -41,7 +41,17 @@ x=(1:nx)*dx;x=x-mean(x);
 y=(1:ny)*dx;y=y-mean(y);
 z=-dz/2:-dz:-H;
 
+%====================================================
+% Initiale velociti
+Kmin=3;
+Kmax=5;
+moy =0.1;
+[Uinit, Vinit]= fgenturb([nx ny nz], Kmin,Kmax, moy);
 
+fid=fopen('Uinit','w','b'); fwrite(fid,Uinit,'real*8'); fclose(fid);
+fid=fopen('Vinit','w','b'); fwrite(fid,Uinit,'real*8'); fclose(fid);
+
+%{
 %====================================================
 % Temperature profile
 
@@ -223,5 +233,6 @@ fid=fopen('relaxT.bin','w','b'); fwrite(fid,relaxT,'real*8'); fclose(fid);
 %  Sz=rdmds(['S.0000014000']);
 %  fid=fopen('S.init','w','b'); fwrite(fid,Sz,'real*8'); fclose(fid);
 %  
-%  
+%
+%}  
 

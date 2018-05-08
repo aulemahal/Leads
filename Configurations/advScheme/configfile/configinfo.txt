@@ -1,0 +1,22 @@
+%% Cette configuration vise à tester différente schéma d'advection
+
+
+% On veut donc les output suivant dans data.diagnostic
+thDiag = THETA, TOTTTEND, ADVr_TH, ADVx_TH, ADVy_TH, DFrE_TH, DFxE_TH, DFyE_th
+dynDiag = UVEL, VVEL, WVEL, momKE
+
+1) On veut tester les schéma suivant
+Schéma : 3, 20, 77, 33, 80
+
+2) On veut tester pour chaque schéma, les résolutions suivantes
+reso(m): 1, 2, 4, 8
+
+3) On veut s'assuré que une longue et une petit run ca change rien
+
+4) Vérifier avec de la stratification
+
+Pour chacun des runs, on veut s'assurer que
+i) La température est conservé (que ca soit pràs de 0)
+ dtTH = -div(div(flux advectif)) + div(flux diffusif) ?? A vériefié
+
+P.S: LP pense que ca va être prête pour Lundi....NEVER GONNA HAPPEN !!

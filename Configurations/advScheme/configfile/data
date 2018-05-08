@@ -1,0 +1,72 @@
+# ====================
+# | Model parameters |
+# ====================
+#
+# Continuous equation parameters
+ &PARM01
+ tRef=120*20.,
+ sRef=120*35.,
+ viscAh=2.E-3,
+ viscAz=2.E-3,
+ useSmag3D=.TRUE.,
+ no_slip_sides=.FALSE.,
+ no_slip_bottom=.FALSE.,
+ diffKhT=2.E-4,
+ diffKzT=2.E-4,
+ tempAdvScheme = 77,
+ f0=1.E-4,
+ beta=0.E-11,
+ tAlpha=2.0E-4,
+ sBeta =0.,
+ gravity=10.,
+ rhoConst=1000.,
+ rhoNil=1000.,
+ heatCapacity_Cp=4000.,
+#rigidLid=.TRUE.,
+ implicitFreeSurface=.TRUE.,
+#exactConserv=.TRUE.,
+ staggerTimeStep=.TRUE.
+ eosType='LINEAR',
+ nonHydrostatic=.TRUE.,
+ saltStepping=.FALSE.,
+ globalFiles=.TRUE.,
+ useSingleCpuIO = .TRUE.,
+ readBinaryPrec=64,
+ writeBinaryPrec=64,
+ &
+
+# Elliptic solver parameters
+ &PARM02
+ cg2dMaxIters=1000,
+ cg2dTargetResidual=1.E-9,
+ cg3dMaxIters=100,
+ cg3dTargetResidual=1.E-9,
+ &
+ 
+# Time stepping parameters
+ &PARM03
+ nIter0 =  0,
+ nTimeSteps = 1000,
+ deltaT      =   2.0000000     ,
+ abEps=0.1,
+ pChkptFreq =   100.0000     ,
+ chkptFreq  =   100.0000     ,
+ dumpFreq   =   100.0000     ,
+ monitorFreq=100.,
+ monitorSelect=1,
+ &
+  
+  
+ &PARM04
+ usingCartesianGrid=.TRUE.,
+ dXspacing=1.,
+ dYspacing=1.,
+ delZ=120*1.,
+ &
+  
+  
+ &PARM05
+#surfQfile='Qo',
+ uVelInitFile='Uinitk.bin',
+ vVelInitFile='Vinitk.bin',
+ &
